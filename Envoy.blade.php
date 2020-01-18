@@ -44,5 +44,9 @@
     ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
 
 	cd {{ $app_dir }}/current
-	chmod -R force 775 storage bootstrap/cache
+	php artisan cache:clear
+	php artisan view:clear
+	php artisan route:clear
+	php artisan config:clear
+	chmod -R 775 storage bootstrap/cache
 @endtask
