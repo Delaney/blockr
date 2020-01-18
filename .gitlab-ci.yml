@@ -37,6 +37,5 @@ deploy_production:
   environment:
     name: production
     url: http://blockr.looka.live
-  when: manual
   only:
     - master
