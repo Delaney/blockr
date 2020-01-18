@@ -48,6 +48,5 @@
 	php artisan view:clear
 	php artisan route:clear
 	php artisan config:clear
-	chgrp -R www-data storage bootstrap/cache
 	chmod -R ug+rwx storage bootstrap/cache
 @endtask
