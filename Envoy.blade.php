@@ -44,5 +44,5 @@
     ln -nfs {{ $new_release_dir }} {{ $app_dir }}/current
 
 	cd {{ $app_dir }}/current
-	chmod -R 775 storage bootstrap/cache
+	chmod -R force 775 storage bootstrap/cache
 @endtask
