@@ -48,5 +48,4 @@
 	php artisan view:clear
 	php artisan route:clear
 	php artisan config:clear
-	chmod -R ug+rwx storage bootstrap/cache
 @endtask
