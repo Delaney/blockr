@@ -13,8 +13,4 @@ interface CredentialsInterface
 
 	public function setSecret($secret);
 
-	public function getCallbackUri();
-
-	public function setCallbackUri($callbackUri);
-
 }
