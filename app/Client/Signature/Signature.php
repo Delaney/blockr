@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Signature;
+namespace App\Client\Signature;
 
-use App\Credentials\CredentialsInterface;
-use App\Credentials\ClientCredentialsInterface;
+use App\Client\Credentials\CredentialsInterface;
+use App\Client\Credentials\ClientCredentialsInterface;
 
 abstract class Signature implements SignatureInterface
 {
@@ -22,7 +22,7 @@ abstract class Signature implements SignatureInterface
 
 	protected function key()
 	{
-		$key = rawurlencode($this->clentCredentials->getSecret()) . '&';
+		$key = rawurlencode($this->clientCredentials->getSecret()) . '&';
 
 		if ($this->credentials !== null){
 			$key .= rawurlencode($this->credentials->getSecret());

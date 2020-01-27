@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Signature;
+namespace App\Client\Signature;
 
-use App\Credentials\ClientCredentialsInterface;
-use App\Credentials\CredentialsInterface;
+use App\Client\Credentials\ClientCredentialsInterface;
+use App\Client\Credentials\CredentialsInterface;
 
 interface SignatureInterface
 {

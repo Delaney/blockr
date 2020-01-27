@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Signature;
+namespace App\Client\Signature;
 
-use GuzzleHttp\Ps7;
-use GuzzleHttp\Ps7\Uri;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Uri;
 
 class HmacSha1Signature extends Signature implements SignatureInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Credentials;
+namespace App\Client\Credentials;
 
 abstract class Credentials implements CredentialsInterface
 {
@@ -20,7 +20,7 @@ abstract class Credentials implements CredentialsInterface
 
 	public function getSecret()
 	{
-		return $this->$secret;
+		return $this->secret;
 	}
 
 	public function setSecret($secret)

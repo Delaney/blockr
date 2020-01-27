@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Credentials;
+namespace App\Client\Credentials;
 
 interface CredentialsInterface
 {

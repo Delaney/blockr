@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/start', 'UserController@start')->name('start');
+Route::get('/start', 'TwitterController@start')->name('start');
+
+Route::get('/cb', 'TwitterController@token')->name('token');
