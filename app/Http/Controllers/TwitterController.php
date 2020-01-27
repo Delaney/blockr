@@ -59,6 +59,10 @@ class TwitterController extends BaseController
 			$temporaryCredentials = unserialize($_SESSION['temporary_credentials']);
 
 			$token = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
+
+			$user = $server->getUserDetails($token);
+
+			var_dump($user);
 		}
 	}
 }

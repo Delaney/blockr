@@ -23,7 +23,7 @@ abstract class Server
 
 	protected $responseType = 'json';
 
-	protected $cacheUserDetailsResponse;
+	protected $cachedUserDetailsResponse;
 
 	protected $userAgent;
 
@@ -170,9 +170,9 @@ abstract class Server
 				case 'json':
 					$this->cachedUserDetailsResponse = json_decode((string) $response->getBody(), true);
 
-				case 'xml':
-					$this->cachedUserDetailsResponse = simplexml_load_string((string) $response->getBody());
-					break;
+				// case 'xml':
+				// 	$this->cachedUserDetailsResponse = simplexml_load_string((string) $response->getBody());
+				// 	break;
 
 				case 'string':
 					parse_str((string) $response->getBody(), $this->cachedUserDetailsResponse);

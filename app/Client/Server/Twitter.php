@@ -3,6 +3,7 @@
 namespace App\Client\Server;
 
 use App\Client\Credentials\TokenCredentials;
+use App\Models\User;
 
 class Twitter extends Server
 {
@@ -23,7 +24,7 @@ class Twitter extends Server
 
 	public function urlUserDetails()
 	{
-		return 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true';
+		return 'https://api.twitter.com/1.1/account/verify_credentials.json?';
 	}
 
 	public function userDetails($data, TokenCredentials $tokenCredentials)
@@ -31,17 +32,14 @@ class Twitter extends Server
 		$user = new User();
 
 		$user->uid = $data['id_str'];
-        $user->nickname = $data['screen_name'];
+        $user->handle = $data['screen_name'];
         $user->name = $data['name'];
-        $user->location = $data['location'];
-        $user->description = $data['description'];
-        $user->imageUrl = $data['profile_image_url'];
         $user->email = null;
         if (isset($data['email'])) {
             $user->email = $data['email'];
         }
 
-        $used = array('id', 'screen_name', 'name', 'location', 'description', 'profile_image_url', 'email');
+        $used = array('id', 'screen_name', 'name', 'email');
 
         foreach ($data as $key => $value) {
             if (strpos($key, 'url') !== false) {
@@ -71,6 +69,11 @@ class Twitter extends Server
 
 	public function userScreenName($data, TokenCredentials $tokenCredentials)
 	{
-		return $fata['name'];
+		return $data['name'];
+	}
+
+	public function userHandle($data, TokenCredentials $tokenCredentials)
+	{
+		return $data['screen_name'];
 	}
 }
