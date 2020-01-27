@@ -112,7 +112,7 @@ abstract class Server
 			return $this->handleTokenCredentialsBadResponse($e);
 		}
 
-		return $this->handleTokenCredentials((string) $response->getBody());
+		return $this->createTokenCredentials((string) $response->getBody());
 	}
 
 	public function getUserDetails(TokenCredentials $tokenCredentials, $force = false)
