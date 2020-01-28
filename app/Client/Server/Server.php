@@ -169,6 +169,7 @@ abstract class Server
 			switch ($this->responseType) {
 				case 'json':
 					$this->cachedUserDetailsResponse = json_decode((string) $response->getBody(), true);
+					// $this->cachedUserDetailsResponse = $response->getBody();
 
 				// case 'xml':
 				// 	$this->cachedUserDetailsResponse = simplexml_load_string((string) $response->getBody());
@@ -182,6 +183,7 @@ abstract class Server
 					throw new \InvalidArgumentException("Invalid responsetype [{$this->responseType}].");
 			}
 			
+			// var_dump($this->cachedUserDetailsResponse);
 			return $this->cachedUserDetailsResponse;
 		}
 	}

@@ -27,9 +27,13 @@ class Twitter extends Server
 		return 'https://api.twitter.com/1.1/account/verify_credentials.json?';
 	}
 
-	public function userDetails($data, TokenCredentials $tokenCredentials)
+	public function userDetails($dataRaw, TokenCredentials $tokenCredentials)
 	{
 		$user = new User();
+
+		$data = array_key_first($dataRaw);
+		$data .= '""}}}';
+		$data = json_decode($data, true);
 
 		$user->uid = $data['id_str'];
         $user->handle = $data['screen_name'];
@@ -39,22 +43,22 @@ class Twitter extends Server
             $user->email = $data['email'];
         }
 
-        $used = array('id', 'screen_name', 'name', 'email');
+        // $used = array('id', 'screen_name', 'name', 'email');
 
-        foreach ($data as $key => $value) {
-            if (strpos($key, 'url') !== false) {
-                if (!in_array($key, $used)) {
-                    $used[] = $key;
-                }
+        // foreach ($data as $key => $value) {
+        //     if (strpos($key, 'url') !== false) {
+        //         if (!in_array($key, $used)) {
+        //             $used[] = $key;
+        //         }
 
-                $user->urls[$key] = $value;
-            }
-        }
+        //         $user->urls[$key] = $value;
+        //     }
+        // }
 
         // Save all extra data
-        $user->extra = array_diff_key($data, array_flip($used));
+        // $user->extra = array_diff_key($data, array_flip($used));
 
-        return $user;
+		return $user;
 	}
 
 	public function userUid($data, TokenCredentials $tokenCredentials)

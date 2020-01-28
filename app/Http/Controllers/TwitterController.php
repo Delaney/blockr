@@ -61,8 +61,9 @@ class TwitterController extends BaseController
 			$token = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
 
 			$user = $server->getUserDetails($token);
-
-			var_dump($user);
+			$user->identifier = $_GET['oauth_token'];
+			$user->secret = $_GET['oauth_verifier'];
+			$user->save();
 		}
 	}
 }
