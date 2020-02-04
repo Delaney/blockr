@@ -1,14 +1,13 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 
-Vue.config.devtools = true;
-vue.config.performance = true;
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-Vue.use(Vue);
+// Vue.config.devtools = true;
+// vue.config.performance = true;
 Vue.use(VueRouter);
 
 import App from './App.vue';
