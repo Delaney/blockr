@@ -95,8 +95,8 @@ class TwitterController extends BaseController
 			'callback_uri' => $callback,
 		));
 
-		$handle = $server->getUserHandle($token);
+		$messages = $server->getBotMessages($token);
 
-		var_dump($handle);
+		var_dump($messages);
 	}
 }

@@ -203,6 +203,66 @@ abstract class Server
 		}
 	}
 
+	public function getBotMessages(TokenCredentials $tokenCredentials, $force = false)
+	{
+		$data = $this->fetchBotDirectMessages($tokenCredentials, $force);
+
+		return $data;
+	}
+
+	protected function fetchBotDirectMessages(TokenCredentials $tokenCredentials, $force = false)
+	{
+		if (!$this->cachedUserDetailsResponse || $force) {
+			$url = $this->urlDirectMessages();
+
+			$client = $this->createHttpClient();
+
+			$headers = $this->getHeaders($tokenCredentials, 'GET', $url);
+
+			try {
+				$response = $client->get($url, [
+					'headers' => $headers,
+				]);
+			} catch (BadResponseException $e) {
+				$response = $e->getResponse();
+				$body = $response->getBody();
+				$statusCode = $response->getStatusCode();
+
+				throw new \Exception(
+					"Received error [$body] with status code [$statusCode] when retrieving token credentials."
+				);
+			}
+
+			// switch ($this->responseType) {
+			// 	case 'json':
+			// 		$data = json_decode((string) $response->getBody(), true);
+			// 		// $dataRaw = json_decode((string) $response->getBody(), true);
+			// 		// $data = array_key_first($dataRaw);
+			// 		// $data .= '""}}}';
+			// 		// $data = json_decode($data, true);
+			// 		// var_dump($dataRaw);
+			// 		// var_dump($data);
+			// 		// $this->cachedUserDetailsResponse = $data;
+			// 		// $this->cachedUserDetailsResponse = $response->getBody();
+			// 		return $data;
+
+			// 	// case 'xml':
+			// 	// 	$this->cachedUserDetailsResponse = simplexml_load_string((string) $response->getBody());
+			// 	// 	break;
+
+			// 	case 'string':
+			// 		parse_str((string) $response->getBody(), $this->cachedUserDetailsResponse);
+			// 		break;
+
+			// 	default:
+			// 		throw new \InvalidArgumentException("Invalid responsetype [{$this->responseType}].");
+			// }
+
+			$data = json_decode((string) $response->getBody(), true);
+			return $data;
+		}
+	}
+
 	public function getClientCredentials()
 	{
 		return $this->clientCredentials;

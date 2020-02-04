@@ -27,6 +27,11 @@ class Twitter extends Server
 		return 'https://api.twitter.com/1.1/account/verify_credentials.json?';
 	}
 
+	public function urlDirectMessages()
+	{
+		return 'https://api.twitter.com/1.1/direct_messages/events/list.json';
+	}
+
 	public function userDetails($data, TokenCredentials $tokenCredentials)
 	{
 		$user = new User();
