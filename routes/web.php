@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 
 Route::get('/start', 'TwitterController@start')->name('start');
 Route::get('/cb', 'TwitterController@token')->name('token');
 
 Route::get('/botcheck', 'TwitterController@botcheck')->name('botcheck');
+
+Route::get('/', 'TwitterController@index')->name('main');
+Route::get('/bot', 'TwitterController@index')->name('main');

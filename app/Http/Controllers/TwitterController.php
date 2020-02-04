@@ -72,11 +72,21 @@ class TwitterController extends BaseController
 			} else {
 				$user = $exists;
 			}
-
-			var_dump($user->identifier);
-			var_dump($token);
 		}
 
+	}
+
+	public function index()
+	{
+		// if (!Auth::check()) {
+		// 	return view('welcome');
+		// } else {
+		// 	$user = Auth::user();
+
+		// 	return view('admin.index');
+		// }
+
+		return view('admin.index');
 	}
 	
 	public function botcheck(Request $request)
@@ -97,6 +107,11 @@ class TwitterController extends BaseController
 
 		$messages = $server->getBotMessages($token);
 
-		var_dump($messages);
+		return $messages;
+	}
+
+	public function botMessages(Request $request)
+	{
+		return view('admin.pages.messages');
 	}
 }
