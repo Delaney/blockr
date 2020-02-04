@@ -143,6 +143,13 @@ abstract class Server
 		return $this->userScreenName($data, $tokenCredentials);
 	}
 
+	public function getUserHandle(TokenCredentials $tokenCredentials, $force = false)
+	{
+		$data = $this->fetchUserDetails($tokenCredentials, $force);
+
+		return $this->userHandle($data, $tokenCredentials);
+	}
+
 	protected function fetchUserDetails(TokenCredentials $tokenCredentials, $force = false)
 	{
 		if (!$this->cachedUserDetailsResponse || $force) {
@@ -159,7 +166,7 @@ abstract class Server
 			} catch (BadResponseException $e) {
 				$response = $e->getResponse();
 				$body = $response->getBody();
-				$statusCode = $reponse->getStatusCode();
+				$statusCode = $response->getStatusCode();
 
 				throw new \Exception(
 					"Received error [$body] with status code [$statusCode] when retrieving token credentials."
@@ -168,8 +175,16 @@ abstract class Server
 
 			switch ($this->responseType) {
 				case 'json':
-					$this->cachedUserDetailsResponse = json_decode((string) $response->getBody(), true);
+					$data = json_decode((string) $response->getBody(), true);
+					// $dataRaw = json_decode((string) $response->getBody(), true);
+					// $data = array_key_first($dataRaw);
+					// $data .= '""}}}';
+					// $data = json_decode($data, true);
+					// var_dump($dataRaw);
+					// var_dump($data);
+					// $this->cachedUserDetailsResponse = $data;
 					// $this->cachedUserDetailsResponse = $response->getBody();
+					return $data;
 
 				// case 'xml':
 				// 	$this->cachedUserDetailsResponse = simplexml_load_string((string) $response->getBody());

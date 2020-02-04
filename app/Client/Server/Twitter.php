@@ -27,13 +27,13 @@ class Twitter extends Server
 		return 'https://api.twitter.com/1.1/account/verify_credentials.json?';
 	}
 
-	public function userDetails($dataRaw, TokenCredentials $tokenCredentials)
+	public function userDetails($data, TokenCredentials $tokenCredentials)
 	{
 		$user = new User();
 
-		$data = array_key_first($dataRaw);
-		$data .= '""}}}';
-		$data = json_decode($data, true);
+		// $data = array_key_first($dataRaw);
+		// $data .= '""}}}';
+		// $data = json_decode($data, true);
 
 		$user->uid = $data['id_str'];
         $user->handle = $data['screen_name'];

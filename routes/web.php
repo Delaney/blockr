@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/start', 'TwitterController@start')->name('start');
-
 Route::get('/cb', 'TwitterController@token')->name('token');
+
+Route::get('/botcheck', 'TwitterController@botcheck')->name('botcheck');

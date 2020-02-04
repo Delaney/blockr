@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 // use GuzzleHttp\Client;
 // use GuzzleHttp\Exception\GuzzleException;
 use App\Http\Controllers\BaseController;
+use App\Models\User;
 
 use App\Client\Server\Twitter;
+use App\Client\Credentials\TokenCredentials;
 
 class TwitterController extends BaseController
 {
@@ -61,9 +63,40 @@ class TwitterController extends BaseController
 			$token = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
 
 			$user = $server->getUserDetails($token);
-			$user->identifier = $_GET['oauth_token'];
-			$user->secret = $_GET['oauth_verifier'];
-			$user->save();
+			$exists = User::where('uid', '=', $user->uid)->first();
+
+			if (empty($exists)) {
+				$user->identifier = $token->getIdentifier();
+				$user->secret = $token->getSecret();
+				$user->save();
+			} else {
+				$user = $exists;
+			}
+
+			var_dump($user->identifier);
+			var_dump($token);
 		}
+
+	}
+	
+	public function botcheck(Request $request)
+	{
+		$token = new TokenCredentials;
+		$token->setIdentifier(env('BOT_IDENTIFIER'));
+		$token->setSecret(env('BOT_SECRET'));
+
+		// var_dump($token);
+
+		$callback = env('APP_URL') . ':8000/cb';
+
+		$server = new Twitter(array(
+			'identifier' => env('TWITTER_API_KEY'),
+			'secret' => env('TWITTER_API_SECRET'),
+			'callback_uri' => $callback,
+		));
+
+		$handle = $server->getUserHandle($token);
+
+		var_dump($handle);
 	}
 }
