@@ -90,9 +90,16 @@
 		</aside>
 
 		<main class="app-content" id="app">
-			<transition name="fade" mode="out-in">
+			<!-- <transition name="fade" mode="out-in">
 				<router-view></router-view>
-			</transition>
+			</transition> -->
+			<router-view></router-view>
 		</main>
 	</div>
 </template>
+
+<script>
+	export default {
+		
+	}
+</script>

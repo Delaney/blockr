@@ -10,7 +10,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/font-awesome/4.7.0/css/font-awesome.min.css') }}"/>
 </head>
 <body class="app sidebar-mini rtl">
-	<div id="app"></div>
+	<div id="app">
+		<app></app>
+	</div>
 	<script src="{{ asset('backend/js/jquery-3.2.1.min.js') }}"></script>
 	<script src="{{ asset('backend/js/popper.min.js') }}"></script>
 	<script src="{{ asset('backend/js/bootstrap.min.js') }}"></script>

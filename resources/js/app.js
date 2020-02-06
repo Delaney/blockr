@@ -17,8 +17,13 @@ const router = new VueRouter({
 	mode: 'history',
 	routes: [
 		{
-			path: '/bot',
+			path: '/',
 			name: 'app',
+			component: Messages
+		},
+		{
+			path: '/bot',
+			name: 'bot',
 			component: Messages
 		}
 	]
