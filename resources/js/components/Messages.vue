@@ -18,7 +18,8 @@
 					<td>{{ m.created_timestamp }}</td>
 					<td>{{ m.message_create.sender_id }}</td>
 					<td>{{ m.message_create.message_data.text }}</td>
-					<td v-html="getEntities(m.message_create.message_data.entities)"></td>
+					<td v-html="getBlockrHandles(m.message_create.message_data.entities)"></td>
+					<!-- <td v-html="getEntities(m.message_create.message_data.entities)"></td> -->
 				</tr>
 			</tbody>
 		</table>
@@ -37,8 +38,6 @@
 		methods: {
 			getMessages() {
 				window.axios.get('/botcheck').then(response => {
-					// console.log(JSON.stringify(response));
-					// console.log(response);
 					console.log(response.data);
 					if (response.data.events) {
 						this.messages = response.data.events;
@@ -73,6 +72,26 @@
 					str += "URLS:<br />";
 					entities.urls.forEach(o => {
 						str += `${entities.urls.indexOf(o) + 1}. ${o.expanded_url} (${this.getHandleFromURL(o.expanded_url)})`; 
+					});
+				}
+
+				return str;
+			},
+
+			getBlockrHandles(entities) {
+				let str = "";
+				let sn = 1;
+				if (entities.user_mentions.length) {
+					entities.user_mentions.forEach(o => {
+						str += `${sn}. @${o.screen_name}<br />`;
+						sn++;
+					});
+				}
+
+				if (entities.urls.length) {
+					entities.urls.forEach(o => {
+						str += `${sn}. @${this.getHandleFromURL(o.expanded_url)}<br />`;
+						sn++; 
 					});
 				}
 

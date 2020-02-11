@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Client\Server\Twitter;
 use App\Client\Credentials\TokenCredentials;
 
+use App\Client\Blockr\Block;
+
 class TwitterController extends BaseController
 {
 	protected $server;
@@ -106,12 +108,42 @@ class TwitterController extends BaseController
 		));
 
 		$messages = $server->getBotMessages($token);
+		$jsn = json_encode($messages, true);
+		$arr = json_decode($jsn, true);
 
-		return $messages;
+		$messages = $arr["events"];
+
+		// var_dump($arr);
+		// print_r($arr["events"]);
+		// echo count($arr["events"]);
+		// return json_encode($json, true));
+
+		// foreach($arr['events'] as $key => $value) {
+		// 	echo nl2br("$key\n" . $value["message_create"]["sender_id"] . "\n\n");
+		// }
+
+		// $sender0_id = $arr['events'][1]["message_create"]["sender_id"];
+
+		$sender0 = new Block($messages[1]);
+		echo $sender0->getSenderHandle();
+
+		// $this->printArray($arr);
+
+		// var_dump($arr['events'][1]);
 	}
 
 	public function botMessages(Request $request)
 	{
 		return view('admin.pages.messages');
+	}
+
+	public function printArray($arr) {
+		foreach($arr as $key => $value) {
+			if (gettype($value) != "array") {
+				echo nl2br("$key => $value\n");
+			} else {
+				$this->printArray($value);
+			}
+		}
 	}
 }

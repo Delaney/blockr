@@ -17,7 +17,7 @@ use App\Client\Signature\SignatureInterface;
 
 abstract class Server
 {
-	protected$clientCredentials;
+	protected $clientCredentials;
 
 	protected $signature;
 
