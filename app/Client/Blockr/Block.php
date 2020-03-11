@@ -16,7 +16,11 @@ class Block {
 	}
 
 	public function getSenderHandle() {
-		return $this->sender->handle;
+		if (empty($this->sender)) {
+			return false;
+		} else {
+			return $this->sender->handle;
+		}
 	}
 
 }

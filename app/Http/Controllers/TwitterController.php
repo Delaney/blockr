@@ -124,6 +124,10 @@ class TwitterController extends BaseController
 
 		// $sender0_id = $arr['events'][1]["message_create"]["sender_id"];
 
+		foreach($arr['events'] as $key => $value) {
+			
+		}
+
 		$sender0 = new Block($messages[1]);
 		echo $sender0->getSenderHandle();
 
