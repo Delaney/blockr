@@ -1,5 +1,3 @@
-# Still Under Construction
-
 ## BlockrBot
 
 BlockrBot is a Twitter bot that allows users  block other users by simply sending a Direct Message. Any handles in the message will be blocked.
